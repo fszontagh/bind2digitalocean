@@ -1,88 +1,42 @@
-# Import bind9 zone file into Digital Ocean
+# 🚀 bind2digitalocean - DNS Sync & DYNDNS for DigitalOcean
 
-`import-bind-zone.js` - A simple script to migrate DNS records from `bind9` into `Digital Ocean`  
-`dynamic-dns.js`      - A simple script to dynamic update one or more DNS record
+A practical Node.js-based toolset for:
+- Seamlessly importing `BIND9` zone files into DigitalOcean's DNS system
+- **DYNDNS**: Automatically keeping your A/AAAA records up to date with your current IP address
 
+---
 
-## Setup
+## 🌐 DYNDNS - Dynamic DNS Updates
 
-Clone the repo:
+The `dynamic-dns.js` script allows you to automatically update DNS records when your public IP changes.
 
-```bash
-git clone https://github.com/fszontagh/bind2digitalocean.git
-cd bind2digitalocean
-```
+### ⚙️ Configuration
 
-Install node dependencies:
-
-```bash
-npm install
-```
-
-Prepare the environment variable `DO_API_TOKEN`, which is needed to auth at the Digital Ocean API
-
-```bash
-export DO_API_TOKEN="..."
-```
-
-## Usage - testing
-```
-./import-bind-zone.js <path_to_the_zone_file>
-
-```
-
-## Usage - migrate
-```
-./import-bind-zone.js <path_to_the_zone_file> --live
-
-```
-
-
-# DYNDNS
-
-To configure which IP wolud you like update from cron, please start the script without any parameter. The script will show a simple menu:
+Run the script with no parameters to select which records to update:
 
 ```bash
 ./dynamic-dns.js
 ```
 
-Then select one or more record. Only `AAAA` or `A` records allowed. 
+You'll be prompted with a simple menu to choose the records (only `A` or `AAAA` types are supported):
 
-When you are ready, you can check it:
-
-```bash
-./dynamic-dns.js --cron
-```
-This will update the selected record(s) with your current public IO, which is fetched from `https://api.ipify.org` 
-
-You can setup a cron job to do it autoamitc.  
-
-### Initial menu
-
+#### 📋 Main Menu
 ```
 1) List domains to select record for DYNDNS
 2) DYNDNS list
 b) Exit
 ```
 
-### Domain list
+#### 🌍 Domain Selection
 ```
-Please select an option: 1
 1) domain.com
-2) zbaz.tld
-3) xy.abc.tld
-4) abcdefg.tld
-5) xyz.tld
-6) yyyyyyy.tld
-7) xxxx.tld
-8) xxxx.domain.tld
+2) xyz.tld
+3) example.tld
 b) Back
-
 ```
-### DYNDNS list 
-```
-Please select an option: 2
 
+#### 📡 DYNDNS List
+```
 1) xyz.domain.tld [A]
     ↳ Current IP: 89.147.65.217
     ↳ TTL: 900
@@ -94,5 +48,61 @@ d) Delete an entry
 t) Set TTL for an entry
 ```
 
+### 🕒 Cron Mode
 
+Once you've selected your records, run the script in cron mode:
 
+```bash
+./dynamic-dns.js --cron
+```
+
+This will fetch your public IP from `https://api.ipify.org` and update the chosen records.
+It's recommended to schedule this via `cron` (e.g., every 5 minutes).
+
+---
+
+## 📦 Import BIND9 Zone Files into DigitalOcean
+
+The `import-bind-zone.js` script lets you migrate BIND9-style zone files into DigitalOcean's DNS system.
+
+### ⚙️ Setup
+
+1. Clone the repo:
+```bash
+git clone https://github.com/fszontagh/bind2digitalocean.git
+cd bind2digitalocean
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Set up the required API token as an environment variable:
+```bash
+export DO_API_TOKEN="your_digitalocean_token"
+```
+
+---
+
+### ▶️ Usage
+
+#### Dry-run (test import):
+
+```bash
+./import-bind-zone.js <path_to_the_zone_file>
+```
+
+#### Live migration (create records on DigitalOcean):
+
+```bash
+./import-bind-zone.js <path_to_the_zone_file> --live
+```
+
+---
+
+## 💬 Feedback & Contributions
+
+Feel free to open issues, suggest improvements, or fork the repo to contribute!
+
+---
