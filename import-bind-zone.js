@@ -180,7 +180,7 @@ const main = async () => {
         if (!created) continue;
 
         for (const record of records) {
-            if (["SOA", "RRSIG", "DNSKEY", "IN", "SSHFP"].includes(record.type)) continue;
+            if (["SOA", "RRSIG", "DNSKEY", "IN", "SSHFP", "DS"].includes(record.type)) continue;
             await createRecord(zoneName, record);
         }
     }
