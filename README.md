@@ -1,10 +1,30 @@
-# 🚀 bind2digitalocean - DNS Sync & DYNDNS for DigitalOcean
+# 🚀 DNS Sync & DYNDNS for DigitalOcean
 
 A practical Node.js-based toolset for:
 - Seamlessly importing `BIND9` zone files into DigitalOcean's DNS system
 - **DYNDNS**: Automatically keeping your A/AAAA records up to date with your current IP address
 
 ---
+### ⚙️ Setup
+
+1. Clone the repo:
+```bash
+git clone https://github.com/fszontagh/bind2digitalocean.git
+cd bind2digitalocean
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Set up the required API token as an environment variable:
+```bash
+export DO_API_TOKEN="your_digitalocean_token"
+```
+
+---
+
 
 ## 🌐 DYNDNS - Dynamic DNS Updates
 
@@ -38,7 +58,7 @@ b) Back
 #### 📡 DYNDNS List
 ```
 1) xyz.domain.tld [A]
-    ↳ Current IP: 89.147.65.217
+    ↳ Current IP: xxx.xxx.xxx.xxx
     ↳ TTL: 900
     ↳ Last checked: 2025. 04. 23. 19:19:06
     ↳ Last updated: 2025. 04. 23. 19:23:10
@@ -64,26 +84,6 @@ It's recommended to schedule this via `cron` (e.g., every 5 minutes).
 ## 📦 Import BIND9 Zone Files into DigitalOcean
 
 The `import-bind-zone.js` script lets you migrate BIND9-style zone files into DigitalOcean's DNS system.
-
-### ⚙️ Setup
-
-1. Clone the repo:
-```bash
-git clone https://github.com/fszontagh/bind2digitalocean.git
-cd bind2digitalocean
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Set up the required API token as an environment variable:
-```bash
-export DO_API_TOKEN="your_digitalocean_token"
-```
-
----
 
 ### ▶️ Usage
 
