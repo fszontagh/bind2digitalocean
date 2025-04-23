@@ -59,17 +59,31 @@ function formatTime(unix) {
     return d.toLocaleString();
 }
 
+function clearScreen() {
+    if (process.stdout.isTTY) {
+        // Cross-platform clear screen
+        const isWindows = process.platform === 'win32';
+        if (isWindows) {
+            require('child_process').execSync('cls', { stdio: 'inherit' });
+        } else {
+            process.stdout.write('\x1Bc');
+        }
+    }
+}
+
 async function interactiveMenu() {
     const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
     const question = (q) => new Promise(res => rl.question(q, res));
 
     while (true) {
+        clearScreen();
         console.log('\n1) List domains to select record for DYNDNS');
         console.log('2) DYNDNS list');
         console.log('b) Exit');
         const choice = await question('Please select an option: ');
 
         if (choice === '1') {
+            clearScreen();
             const domains = await listDomains();
             domains.forEach((d, i) => console.log(`${i + 1}) ${d.name}`));
             console.log('b) Back');
@@ -129,6 +143,7 @@ async function interactiveMenu() {
             console.log('✔ DYNDNS record stored in: ' + CONFIG_PATH);
 
         } else if (choice === '2') {
+            clearScreen();
             const config = loadConfig();
             if (config.domains.length === 0) {
                 console.log('ℹ No records configured.');
@@ -184,9 +199,13 @@ async function interactiveMenu() {
                 }
             }
 
-            if (subChoice.toLowerCase() === 'b') continue;
+            if (subChoice.toLowerCase() === 'b') {
+                clearScreen();
+                continue;
+            }
 
             if (subChoice.toLowerCase() === 'd') {
+                clearScreen();
                 const toDelete = await question('Enter record number to delete: ');
                 const delIndex = parseInt(toDelete) - 1;
                 if (!isNaN(delIndex) && delIndex >= 0 && delIndex < config.domains.length) {
