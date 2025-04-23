@@ -169,6 +169,7 @@ const main = async () => {
 
     for (const file of args) {
         console.log(`\nParsing: ${file}`);
+
         const zoneName = getZoneNameFromFile(file);
         if (!zoneName) {
             console.error(`Can not get the zone name from the zone file: ${file}`);
@@ -180,7 +181,7 @@ const main = async () => {
         if (!created) continue;
 
         for (const record of records) {
-            if (["SOA", "RRSIG", "DNSKEY", "IN", "SSHFP", "DS"].includes(record.type)) continue;
+            if (["SOA", "RRSIG", "DNSKEY", "IN", "SSHFP", "DS", ""].includes(record.type)) continue;
             await createRecord(zoneName, record);
         }
     }
