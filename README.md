@@ -1,6 +1,6 @@
 # Import bind9 zone file into Digital Ocean
 
-A simple script to migare from `bind9` into `Digital Ocean`
+A simple script to migrate from `bind9` into `Digital Ocean`
 
 
 ## Setup
@@ -18,7 +18,7 @@ Install node deps:
 npm install
 ```
 
-Prepare the environment variable `DO_API_TOKEN`, which is a Digital Ocean API key.
+Prepare the environment variable `DO_API_TOKEN`, which is need to be a Digital Ocean API key.
 
 ```bash
 export DO_API_TOKEN="..."
