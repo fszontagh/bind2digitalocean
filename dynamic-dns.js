@@ -245,9 +245,7 @@ async function cronUpdate() {
             );
             entry.cached_ip = publicIP;
             entry.last_updated = now;
-        } else {
-            console.log(`ℹ ${entry.domain} record is same.`);
-        }
+        } // disable output if no changes
         entry.last_checked = now;
     }
 
